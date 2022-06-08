@@ -61,3 +61,32 @@ export function styled<TargetType extends ElementType>(Target: TargetType) {
 
   return createStyledComponent;
 }
+
+interface GlobalProps {
+  style: Style;
+}
+
+export const Global = ({ style }: GlobalProps) => {
+  const elementRef = useRef<HTMLStyleElement | null>(null);
+
+  useEffect(() => {
+    if (elementRef.current === null) {
+      elementRef.current = document.createElement("style");
+      document.head.appendChild(elementRef.current);
+    }
+
+    clearElement(elementRef.current);
+
+    elementRef.current.appendChild(
+      document.createTextNode(parseStyle(style.code))
+    );
+
+    return () => {
+      if (elementRef.current !== null) {
+        //removeElement(elementRef.current);
+      }
+    };
+  }, [style.code]);
+
+  return null;
+};
