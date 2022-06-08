@@ -1,4 +1,11 @@
-import { ComponentProps, ElementType, FC, useEffect, useRef } from "react";
+import {
+  ComponentProps,
+  ElementType,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+import murmurhash from "murmurhash";
 import { compile, middleware, serialize, stringify, prefixer } from "stylis";
 
 function removeElement(element: HTMLElement) {
@@ -12,27 +19,49 @@ function parseStyle(className: string, style: string) {
   );
 }
 
-export function styled<AnyComponent extends FC | ElementType>(
-  Component: AnyComponent
-) {
-  const StyledComponent = (props: ComponentProps<AnyComponent>) => {
-    const elementRef = useRef<HTMLStyleElement | null>(null);
+function generateStyleKey(style: string) {
+  return `lets-style-${murmurhash(style)}`;
+}
 
-    useEffect(() => {
-      if (elementRef.current === null) {
-        elementRef.current = document.createElement("style");
-        document.head.appendChild(elementRef.current);
-      }
+export function styled<TargetType extends ElementType>(Target: TargetType) {
+  function createStyledComponent(
+    styleParts: TemplateStringsArray,
+    ...interpolations: Array<any>
+  ) {
+    const ResultComponent = (props: ComponentProps<TargetType>) => {
+      const elementRef = useRef<HTMLStyleElement | null>(null);
+      const [currentStyle, setCurrentStyle] = useState(styleParts.join(""));
 
-      return () => {
-        if (elementRef.current !== null) {
-          removeElement(elementRef.current);
+      const styleKey = generateStyleKey(currentStyle);
+
+      useEffect(() => {
+        if (elementRef.current === null) {
+          elementRef.current = document.createElement("style");
+          document.head.appendChild(elementRef.current);
         }
-      };
-    }, []);
 
-    return <Component {...props} />;
-  };
+        elementRef.current.appendChild(
+          document.createTextNode(`.${styleKey} { ${currentStyle} }`)
+        );
 
-  return StyledComponent;
+        return () => {
+          if (elementRef.current !== null) {
+            removeElement(elementRef.current);
+          }
+        };
+      }, [styleKey]);
+
+      return (
+        <Target
+          {...props}
+          // Temporary code.
+          {...({ className: styleKey } as any)}
+        />
+      );
+    };
+
+    return ResultComponent;
+  }
+
+  return createStyledComponent;
 }

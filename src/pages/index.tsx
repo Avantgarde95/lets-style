@@ -4,21 +4,46 @@ import { styled } from "lets-style";
 import { useState } from "react";
 
 const HomePage = () => {
-  const [render, setRender] = useState(true);
+  const [showText, setShowText] = useState(true);
 
   return (
-    render && (
-      <Container
+    <Container>
+      <StyledButton
+        label="yes"
         onClick={() => {
-          setRender(false);
+          setShowText(!showText);
         }}
-      >
-        Hello!
-      </Container>
-    )
+      />
+      {showText && <Text>Hello!</Text>}
+    </Container>
   );
 };
 
-const Container = styled("div");
+interface ButtonProps {
+  className?: string;
+  label: string;
+  onClick?: () => void;
+}
+
+const Button = ({ className, label, onClick }: ButtonProps) => (
+  <button className={className} onClick={onClick}>
+    {label}
+  </button>
+);
+
+const Container = styled("div")`
+  width: 100%;
+  height: 100%;
+
+  background-color: skyblue;
+`;
+
+const StyledButton = styled(Button)`
+  background-color: pink;
+`;
+
+const Text = styled("div")`
+  font-weight: bold;
+`;
 
 export default HomePage;
