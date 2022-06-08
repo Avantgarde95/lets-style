@@ -1,24 +1,24 @@
 import React from "react";
 
-import { parseStyle } from "lets-style";
+import { styled } from "lets-style";
+import { useState } from "react";
 
-console.log(
-  parseStyle(
-    "my-app",
-    `
-display: flex;
+const HomePage = () => {
+  const [render, setRender] = useState(true);
 
-&:hover {
-  color: red;
-}
+  return (
+    render && (
+      <Container
+        onClick={() => {
+          setRender(false);
+        }}
+      >
+        Hello!
+      </Container>
+    )
+  );
+};
 
-a {
-  color: blue;
-}
-`
-  )
-);
-
-const HomePage = () => <div>Hello!</div>;
+const Container = styled("div");
 
 export default HomePage;
