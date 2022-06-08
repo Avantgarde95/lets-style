@@ -1,6 +1,6 @@
 import React from "react";
 
-import { css, styled } from "lets-style";
+import { css, keyframes, styled } from "lets-style";
 import { useState } from "react";
 
 const HomePage = () => {
@@ -26,6 +26,15 @@ const HomePage = () => {
   );
 };
 
+const containerAnimation = keyframes`
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+`;
+
 interface ButtonProps {
   className?: string;
   label: string;
@@ -43,6 +52,7 @@ const Container = styled("div")`
   height: 100%;
 
   background-color: skyblue;
+  animation: 1s linear ${containerAnimation};
 `;
 
 const mixinStyle = css`
