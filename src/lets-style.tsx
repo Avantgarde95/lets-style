@@ -1,12 +1,9 @@
-import {
-  ComponentProps,
-  ElementType,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
-import murmurhash from "murmurhash";
+import { ComponentProps, ElementType, useEffect, useRef } from "react";
 import { compile, middleware, serialize, stringify, prefixer } from "stylis";
+import murmurhash from "murmurhash";
+
+// ===============================================================
+// Helper functions.
 
 function removeElement(element: HTMLElement) {
   element.parentNode?.removeChild(element);
@@ -19,43 +16,66 @@ function parseStyle(className: string, style: string) {
   );
 }
 
-function generateStyleKey(style: string) {
-  return `lets-style-${murmurhash(style)}`;
+// ===============================================================
+// Core types.
+
+interface Style {
+  key: string;
+  code: string;
 }
 
-export function styled<TargetType extends ElementType>(Target: TargetType) {
+// ===============================================================
+// Core functions.
+
+function css(
+  parts: TemplateStringsArray,
+  ...interpolations: Array<any>
+): Style {
+  const code = parts.join("");
+
+  return {
+    key: `${murmurhash(code)}`,
+    code,
+  };
+}
+
+function useStyle(style: Style) {
+  const elementRef = useRef<HTMLStyleElement | null>(null);
+  const className = `css-${style.key}`;
+
+  useEffect(() => {
+    if (elementRef.current === null) {
+      elementRef.current = document.createElement("style");
+      document.head.appendChild(elementRef.current);
+    }
+
+    elementRef.current.appendChild(
+      document.createTextNode(`.${className} { ${style.code} }`)
+    );
+
+    return () => {
+      if (elementRef.current !== null) {
+        removeElement(elementRef.current);
+      }
+    };
+  }, [className]);
+
+  return className;
+}
+
+function styled<TargetType extends ElementType>(Target: TargetType) {
   function createStyledComponent(
     styleParts: TemplateStringsArray,
     ...interpolations: Array<any>
   ) {
     const ResultComponent = (props: ComponentProps<TargetType>) => {
-      const elementRef = useRef<HTMLStyleElement | null>(null);
-      const [currentStyle, setCurrentStyle] = useState(styleParts.join(""));
-
-      const styleKey = generateStyleKey(currentStyle);
-
-      useEffect(() => {
-        if (elementRef.current === null) {
-          elementRef.current = document.createElement("style");
-          document.head.appendChild(elementRef.current);
-        }
-
-        elementRef.current.appendChild(
-          document.createTextNode(`.${styleKey} { ${currentStyle} }`)
-        );
-
-        return () => {
-          if (elementRef.current !== null) {
-            removeElement(elementRef.current);
-          }
-        };
-      }, [styleKey]);
+      const className = useStyle(css(styleParts));
 
       return (
         <Target
           {...props}
           // Temporary code.
-          {...({ className: styleKey } as any)}
+          {...({ className } as any)}
         />
       );
     };
@@ -65,3 +85,8 @@ export function styled<TargetType extends ElementType>(Target: TargetType) {
 
   return createStyledComponent;
 }
+
+// ===============================================================
+// Exports.
+
+export { css, useStyle, styled };

@@ -1,10 +1,11 @@
 import React from "react";
 
-import { styled } from "lets-style";
+import { css, styled, useStyle } from "lets-style";
 import { useState } from "react";
 
 const HomePage = () => {
   const [showText, setShowText] = useState(true);
+  const textClassName = useStyle(textStyle);
 
   return (
     <Container>
@@ -14,7 +15,7 @@ const HomePage = () => {
           setShowText(!showText);
         }}
       />
-      {showText && <Text>Hello!</Text>}
+      {showText && <div className={textClassName}>Hello!</div>}
     </Container>
   );
 };
@@ -42,8 +43,9 @@ const StyledButton = styled(Button)`
   background-color: pink;
 `;
 
-const Text = styled("div")`
+const textStyle = css`
   font-weight: bold;
+  color: blue;
 `;
 
 export default HomePage;
