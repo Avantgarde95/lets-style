@@ -1,21 +1,27 @@
 import React from "react";
 
-import { css, styled, useStyle } from "lets-style";
+import { css, styled } from "lets-style";
 import { useState } from "react";
 
 const HomePage = () => {
   const [showText, setShowText] = useState(true);
-  const textClassName = useStyle(textStyle);
+  const [textColor, setTextColor] = useState("red");
 
   return (
     <Container>
       <StyledButton
-        label="yes"
+        label="Show / hide"
         onClick={() => {
           setShowText(!showText);
         }}
       />
-      {showText && <div className={textClassName}>Hello!</div>}
+      <StyledButton
+        label="Change color"
+        onClick={() => {
+          setTextColor(textColor === "red" ? "blue" : "red");
+        }}
+      />
+      {showText && <Text textColor={textColor}>Hello!</Text>}
     </Container>
   );
 };
@@ -39,13 +45,24 @@ const Container = styled("div")`
   background-color: skyblue;
 `;
 
-const StyledButton = styled(Button)`
-  background-color: pink;
+const mixinStyle = css`
+  color: red;
 `;
 
-const textStyle = css`
+const StyledButton = styled(Button)`
+  background-color: pink;
+
+  ${mixinStyle}
+`;
+
+interface TextProps {
+  textColor: string;
+}
+
+const Text = styled("div")<TextProps>`
   font-weight: bold;
-  color: blue;
+  font-family: monospace;
+  color: ${(props) => props.textColor};
 `;
 
 export default HomePage;
