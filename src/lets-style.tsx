@@ -24,7 +24,7 @@ function parseStyle(className: string, style: string) {
 // Core types.
 
 interface Style {
-  key: string;
+  id: string;
   code: string;
 }
 
@@ -63,18 +63,18 @@ function generateCode(inputParts: StyleParts, ...inputArgs: Array<StyleArg>) {
   return result.join("");
 }
 
-function css(inputParts: StyleParts, ...inputArgs: Array<StyleArg>): Style {
-  const code = generateCode(inputParts, ...inputArgs);
+function css(parts: StyleParts, ...args: Array<StyleArg>): Style {
+  const code = generateCode(parts, ...args);
 
   return {
-    key: `${murmurhash(code)}`,
+    id: `${murmurhash(code)}`,
     code,
   };
 }
 
 function useStyle(style: Style) {
   const elementRef = useRef<HTMLStyleElement | null>(null);
-  const className = `css-${style.key}`;
+  const className = `css-${style.id}`;
 
   useEffect(() => {
     if (elementRef.current === null) {
@@ -102,15 +102,15 @@ function styled<TargetType extends ElementType>(Target: TargetType) {
   type TargetProps = ComponentProps<TargetType>;
 
   function createStyledComponent<Props = TargetProps>(
-    inputParts: StyleParts,
-    ...inputArgs: Array<StyleArg | ((props: Props) => StyleArg)>
+    parts: StyleParts,
+    ...args: Array<StyleArg | ((props: Props) => StyleArg)>
   ) {
     const ResultComponent = (props: Props & TargetProps) => {
-      const computedArgs = inputArgs.map((arg) =>
+      const computedArgs = args.map((arg) =>
         typeof arg === "function" ? arg(props) : arg
       );
 
-      const className = useStyle(css(inputParts, ...computedArgs));
+      const className = useStyle(css(parts, ...computedArgs));
 
       return (
         <Target
