@@ -5,6 +5,8 @@ import { styled } from "lets-style";
 import Header from "components/Header";
 import Main from "components/Main";
 import Section from "components/Section";
+import { theme } from "styles/Theme";
+import { highlightOnHover } from "styles/Helpers";
 
 const HomePage = () => (
   <Container>
@@ -17,24 +19,18 @@ const HomePage = () => (
             Inspired by&nbsp;
             <a
               target="_blank"
+              rel="noreferrer noopenner"
               href="https://styled-components.com/"
-              rel="noreferrer"
             >
               styled-components
             </a>
             &nbsp;and&nbsp;
-            <a target="_blank" href="https://emotion.sh/" rel="noreferrer">
-              Emotion
-            </a>
-          </li>
-          <li>
-            You can see the code at&nbsp;
             <a
               target="_blank"
-              href="https://github.com/Avantgarde95/lets-style"
-              rel="noreferrer"
+              rel="noreferrer noopenner"
+              href="https://emotion.sh/"
             >
-              here
+              Emotion
             </a>
           </li>
         </ul>
@@ -69,11 +65,9 @@ const StyledSection = styled(Section)`
   }
 
   a {
-    color: rgb(0 100 255);
+    ${highlightOnHover};
 
-    &:hover {
-      color: rgb(0 190 255);
-    }
+    color: ${theme.color.blue};
   }
 `;
 

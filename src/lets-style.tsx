@@ -155,7 +155,7 @@ function styled<TargetType extends ElementType>(Target: TargetType) {
     parts: InputParts,
     ...args: Array<InputArg | ((props: Props) => InputArg)>
   ) {
-    const ResultComponent = (props: Props & TargetProps) => {
+    function ResultComponent(props: Props & TargetProps) {
       const computedArgs = args.map((arg) =>
         typeof arg === "function" ? arg(props) : arg
       );
@@ -175,7 +175,7 @@ function styled<TargetType extends ElementType>(Target: TargetType) {
           } as any)}
         />
       );
-    };
+    }
 
     return ResultComponent;
   }
@@ -187,13 +187,13 @@ interface GlobalProps {
   style: NormalStyle;
 }
 
-const Global = ({ style }: GlobalProps) => {
+function Global({ style }: GlobalProps) {
   useEffect(() => {
     insertStyle(style, false);
   }, [style]);
 
   return null;
-};
+}
 
 // ===================================================================
 // Public things.
