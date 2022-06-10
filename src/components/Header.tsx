@@ -2,7 +2,11 @@ import React from "react";
 
 import { keyframes, styled } from "lets-style";
 
-const Header = () => <Container>lets-style</Container>;
+const Header = () => (
+  <Container>
+    <Title>lets-style</Title>
+  </Container>
+);
 
 export default Header;
 
@@ -22,9 +26,16 @@ const Container = styled("header")`
 
   width: 100%;
   padding: 1rem;
-  color: #ffffff;
+
   background-color: #272727;
 
-  font-size: 1.5rem;
   animation: 2s ${headerAnimation} forwards;
+`;
+
+const Title = styled("h1")`
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: normal;
+
+  color: #ffffff;
 `;

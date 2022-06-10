@@ -2,13 +2,8 @@ import { useEffect, ElementType, ComponentProps } from "react";
 import { compile, middleware, serialize, stringify, prefixer } from "stylis";
 import murmurhash from "murmurhash";
 
-function hash(value: string) {
-  return murmurhash(value).toString(16);
-}
-
-function parseStyle(style: string) {
-  return serialize(compile(`${style}`), middleware([prefixer, stringify]));
-}
+// ===================================================================
+// Define core types.
 
 interface StyleBase {
   id: string;
@@ -29,8 +24,15 @@ interface KeyframesStyle extends StyleBase {
 
 type Style = NormalStyle | KeyframesStyle;
 
+// ===================================================================
+// Tools for generating the code.
+
 type InputParts = TemplateStringsArray;
 type InputArg = undefined | number | string | Style;
+
+function hash(value: string) {
+  return murmurhash(value).toString(16);
+}
 
 function processInput(parts: InputParts, ...args: Array<InputArg>) {
   const codeParts: Array<string> = [];
@@ -70,7 +72,14 @@ function processInput(parts: InputParts, ...args: Array<InputArg>) {
   return { id, code, neededStyles };
 }
 
+// ===================================================================
+// Tools for inserting the styles into the page.
+
 const insertedStyleIDSet = new Set<string>();
+
+function parseNestedCode(code: string) {
+  return serialize(compile(`${code}`), middleware([prefixer, stringify]));
+}
 
 function insertStyle(style: Style, wrap: boolean) {
   if (typeof document === "undefined") {
@@ -82,26 +91,32 @@ function insertStyle(style: Style, wrap: boolean) {
   }
 
   style.neededStyles.forEach((neededStyle) => {
-    insertStyle(neededStyle, wrap);
+    insertStyle(neededStyle, true);
   });
 
   const element = document.createElement("style");
-  let content: string;
+  element.dataset.styleId = style.id;
+  element.dataset.styleType = style.type;
+
+  let fullCode: string;
 
   if (!wrap) {
-    content = style.code;
+    fullCode = style.code;
   } else if (style.type === "Normal") {
-    content = `.${style.className} { ${style.code} }`;
+    fullCode = `.${style.className} { ${style.code} }`;
   } else if (style.type === "Keyframes") {
-    content = `@keyframes ${style.animationName} { ${style.code} }`;
+    fullCode = `@keyframes ${style.animationName} { ${style.code} }`;
   } else {
     throw new Error("Unexpected situation!");
   }
 
-  element.appendChild(document.createTextNode(parseStyle(content)));
+  element.appendChild(document.createTextNode(parseNestedCode(fullCode)));
   document.head.appendChild(element);
   insertedStyleIDSet.add(style.id);
 }
+
+// ===================================================================
+// Tools for creating the style instances.
 
 function css(parts: InputParts, ...args: Array<InputArg>): NormalStyle {
   const { id, code, neededStyles } = processInput(parts, ...args);
@@ -130,13 +145,8 @@ function keyframes(
   };
 }
 
-function useStyle(style: NormalStyle) {
-  useEffect(() => {
-    insertStyle(style, true);
-  }, [style]);
-
-  return style.className;
-}
+// ===================================================================
+// Tools for rendering the components.
 
 function styled<TargetType extends ElementType>(Target: TargetType) {
   type TargetProps = ComponentProps<TargetType>;
@@ -150,13 +160,19 @@ function styled<TargetType extends ElementType>(Target: TargetType) {
         typeof arg === "function" ? arg(props) : arg
       );
 
-      const className = useStyle(css(parts, ...computedArgs));
+      const style = css(parts, ...computedArgs);
+
+      useEffect(() => {
+        insertStyle(style, true);
+      }, [style]);
 
       return (
         <Target
           {...props}
           // Temporary code.
-          {...({ className } as any)}
+          {...({
+            className: `${style.className} ${props.className ?? ""}`,
+          } as any)}
         />
       );
     };
@@ -179,4 +195,7 @@ const Global = ({ style }: GlobalProps) => {
   return null;
 };
 
-export { css, keyframes, useStyle, styled, Global };
+// ===================================================================
+// Public things.
+
+export { css, keyframes, styled, Global };
