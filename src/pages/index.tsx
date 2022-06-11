@@ -19,7 +19,7 @@ const HomePage = () => (
       <WhySection />
       <GoalsSection />
       <SpecSection />
-      <HowSection />
+      {/* <HowSection /> */}
       <ExampleSection />
     </Main>
   </Container>

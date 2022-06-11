@@ -13,19 +13,19 @@ const ExampleSection = () => {
       <Section.Title>Examples</Section.Title>
       Basic example
       <Demo>
-        <Demo.Code>{`
+        <Demo.CodeBox>{`
 const Button1 = styled("button")\`
   border: 1px solid black;
   background-color: transparent;
 \`;
-      `}</Demo.Code>
-        <Demo.Show>
+      `}</Demo.CodeBox>
+        <Demo.ShowBox>
           <Button1>Click me!</Button1>
-        </Demo.Show>
+        </Demo.ShowBox>
       </Demo>
       Pseudo class
       <Demo>
-        <Demo.Code>{`
+        <Demo.CodeBox>{`
 const Button2 = styled("button")\`
   border: 1px solid black;
   background-color: transparent;
@@ -35,25 +35,25 @@ const Button2 = styled("button")\`
     background-color: skyblue;
   }
 \`;
-      `}</Demo.Code>
-        <Demo.Show>
+      `}</Demo.CodeBox>
+        <Demo.ShowBox>
           <Button2>Click me!</Button2>
-        </Demo.Show>
+        </Demo.ShowBox>
       </Demo>
       Use other component
       <Demo>
-        <Demo.Code>{`
+        <Demo.CodeBox>{`
 const Button3 = styled(Button2)\`
   font-weight: bold;
 \`;
-        `}</Demo.Code>
-        <Demo.Show>
+        `}</Demo.CodeBox>
+        <Demo.ShowBox>
           <Button3>Click me!</Button3>
-        </Demo.Show>
+        </Demo.ShowBox>
       </Demo>
       Mix the styles
       <Demo>
-        <Demo.Code>{`
+        <Demo.CodeBox>{`
 const roundedBorders = css\`
   border-radius: 10px;
 \`;
@@ -66,14 +66,14 @@ const Button4 = styled(Button3)\`
   \${roundedBorders}
   \${putTransition}
 \`;
-        `}</Demo.Code>
-        <Demo.Show>
+        `}</Demo.CodeBox>
+        <Demo.ShowBox>
           <Button4>Click me!</Button4>
-        </Demo.Show>
+        </Demo.ShowBox>
       </Demo>
       Keyframes
       <Demo>
-        <Demo.Code>{`
+        <Demo.CodeBox>{`
 const fadeIn = keyframes\`
   0% {
     opacity: 0;
@@ -89,14 +89,14 @@ const fadeIn = keyframes\`
 const Button5 = styled(Button4)\`
   animation: 2s \${fadeIn} infinite;
 \`;
-      `}</Demo.Code>
-        <Demo.Show>
+      `}</Demo.CodeBox>
+        <Demo.ShowBox>
           <Button5>Click me!</Button5>
-        </Demo.Show>
+        </Demo.ShowBox>
       </Demo>
       Use component props
       <Demo>
-        <Demo.Code>{`
+        <Demo.CodeBox>{`
 interface Button6Props {
   count: number;
   onClick: () => void;
@@ -105,8 +105,8 @@ interface Button6Props {
 const Button6 = styled(Button3)<Button6Props>\`
   color: \${({ count }) => (count > 5 ? "red" : "black")};
 \`;
-      `}</Demo.Code>
-        <Demo.Show>
+      `}</Demo.CodeBox>
+        <Demo.ShowBox>
           <Button6
             count={count}
             onClick={() => {
@@ -115,7 +115,7 @@ const Button6 = styled(Button3)<Button6Props>\`
           >
             Count: {count}
           </Button6>
-        </Demo.Show>
+        </Demo.ShowBox>
       </Demo>
     </Section>
   );

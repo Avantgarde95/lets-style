@@ -1,7 +1,8 @@
-import React, { ReactNode } from "react";
+import React from "react";
 
 import { css, styled } from "lets-style";
 
+import Code from "components/Code";
 import { theme } from "styles/Theme";
 import { alignChildrenCenter, onWideScreen } from "styles/Helpers";
 
@@ -28,13 +29,13 @@ const box = css`
   border: 1px solid ${theme.color.black};
 `;
 
-interface CodeProps {
+interface CodeBoxProps {
   children: string;
 }
 
-const Code = ({ children }: CodeProps) => (
+const CodeBox = ({ children }: CodeBoxProps) => (
   <CodeContainer>
-    <CodeContent>{children.trim()}</CodeContent>
+    <Code>{children.trim()}</Code>
   </CodeContainer>
 );
 
@@ -46,19 +47,12 @@ const CodeContainer = styled("pre")`
   padding: 0.8rem;
 `;
 
-const CodeContent = styled("code")`
-  width: 100%;
-
-  font-family: "Inconsolata", monospace;
-  font-size: 1rem;
-`;
-
-const Show = styled("div")`
+const ShowBox = styled("div")`
   ${box}
   ${alignChildrenCenter}
 `;
 
 export default Object.assign(Demo, {
-  Code,
-  Show,
+  CodeBox,
+  ShowBox,
 });

@@ -1,16 +1,18 @@
 import React, { ComponentProps } from "react";
 
 import { styled } from "lets-style";
+
+import Code from "components/Code";
 import { highlightOnHover } from "styles/Helpers";
 import { theme } from "styles/Theme";
 
-interface CodeProps {
+interface CodeBoxProps {
   children: string;
 }
 
-const Code = ({ children }: CodeProps) => (
+const CodeBox = ({ children }: CodeBoxProps) => (
   <CodeContainer>
-    <CodeContent>{children.trim()}</CodeContent>
+    <Code>{children}</Code>
   </CodeContainer>
 );
 
@@ -20,13 +22,6 @@ const CodeContainer = styled("pre")`
 
   padding: 0.8rem;
   border: 1px solid ${theme.color.black};
-`;
-
-const CodeContent = styled("code")`
-  width: 100%;
-
-  font-family: "Inconsolata", monospace;
-  font-size: 1rem;
 `;
 
 type LinkProps = ComponentProps<"a">;
@@ -46,7 +41,7 @@ const Emph = styled("span")`
 `;
 
 const Text = {
-  Code,
+  CodeBox,
   Link,
   Emph,
 };
