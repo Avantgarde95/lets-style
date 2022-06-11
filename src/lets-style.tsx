@@ -50,6 +50,8 @@ function processInput(parts: InputParts, ...args: Array<InputArg>) {
         } else if (arg.type === "Keyframes") {
           codeParts.push(arg.animationName);
           neededStyles.push(arg);
+        } else {
+          throw new Error("Style has unknown type!");
         }
 
         break;
@@ -60,8 +62,7 @@ function processInput(parts: InputParts, ...args: Array<InputArg>) {
         codeParts.push(arg);
         break;
       default:
-        // Do nothing.
-        break;
+        throw new Error(`Type ${typeof arg} is not supported!`);
     }
   }
 
@@ -107,7 +108,7 @@ function insertStyle(style: Style, wrap: boolean) {
   } else if (style.type === "Keyframes") {
     fullCode = `@keyframes ${style.animationName} { ${style.code} }`;
   } else {
-    throw new Error("Unexpected situation!");
+    throw new Error("Style has unknown type!");
   }
 
   element.appendChild(document.createTextNode(parseNestedCode(fullCode)));
