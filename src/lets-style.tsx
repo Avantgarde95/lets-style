@@ -170,13 +170,17 @@ function styled<TargetType extends ElementType>(Target: TargetType) {
         insertStyle(style, true);
       }, [style]);
 
+      let computedClassName = style.className;
+
+      if (typeof props.className !== "undefined") {
+        computedClassName += " " + props.className;
+      }
+
       return (
         <Target
           {...props}
           // Temporary code.
-          {...({
-            className: `${style.className} ${props.className ?? ""}`,
-          } as any)}
+          {...({ className: computedClassName } as any)}
         />
       );
     }
