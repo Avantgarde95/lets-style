@@ -6,9 +6,26 @@ import murmurhash from "murmurhash";
 // Define core types.
 
 interface StyleBase {
+  /**
+   * Used for distinguishing the styles.
+   * ID is based on the hash of the code.
+   */
   id: string;
+
+  /**
+   * Normal, Keyframes, etc.
+   */
   type: string;
+
+  /**
+   * CSS code.
+   */
   code: string;
+
+  /**
+   * Array of the styles this depends on.
+   * ex. Keyframes used in this style.
+   */
   neededStyles: Array<Style>;
 }
 

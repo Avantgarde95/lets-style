@@ -17,7 +17,7 @@ const ExampleSection = () => {
 const Button1 = styled("button")\`
   border: 1px solid black;
   background-color: transparent;
-\`
+\`;
       `}</Demo.Code>
         <Demo.Show>
           <Button1>Click me!</Button1>
@@ -34,7 +34,7 @@ const Button2 = styled("button")\`
   &:active {
     background-color: skyblue;
   }
-\`
+\`;
       `}</Demo.Code>
         <Demo.Show>
           <Button2>Click me!</Button2>
