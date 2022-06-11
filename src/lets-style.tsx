@@ -28,7 +28,7 @@ type Style = NormalStyle | KeyframesStyle;
 // Tools for generating the code.
 
 type InputParts = TemplateStringsArray;
-type InputArg = undefined | number | string | Style;
+type InputArg = undefined | boolean | number | string | Style;
 
 function hash(value: string) {
   return murmurhash(value).toString(16);
@@ -60,6 +60,9 @@ function processInput(parts: InputParts, ...args: Array<InputArg>) {
         break;
       case "string":
         codeParts.push(arg);
+        break;
+      case "boolean":
+        // Do nothing.
         break;
       default:
         throw new Error(`Type ${typeof arg} is not supported!`);
