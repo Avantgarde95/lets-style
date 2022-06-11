@@ -1,19 +1,9 @@
-import React, { ReactNode } from "react";
-
 import { keyframes, styled } from "lets-style";
 
-interface SectionProps {
-  className?: string;
-  title: string;
-  children: ReactNode;
-}
-
-const Section = ({ className, title, children }: SectionProps) => (
-  <Container className={className}>
-    <Title>{title}</Title>
-    {children}
-  </Container>
-);
+const Section = styled("section")`
+  width: 100%;
+  margin-bottom: 1rem;
+`;
 
 const titleAnimation = keyframes`
   100% {
@@ -22,18 +12,15 @@ const titleAnimation = keyframes`
   }
 `;
 
-const Container = styled("section")`
-  width: 100%;
-  margin-bottom: 1rem;
-`;
-
 const Title = styled("h2")`
   margin: 0 0 0.5rem 0;
   padding: 0;
 
   transform: translateX(-1rem);
   opacity: 0;
-  animation: 2s ${titleAnimation} forwards;
+  animation: 1.5s ${titleAnimation} forwards;
 `;
 
-export default Section;
+export default Object.assign(Section, {
+  Title,
+});

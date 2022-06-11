@@ -9,6 +9,14 @@ const Main = styled("main")`
   width: 100%;
   height: 100%;
   padding: 1rem;
+
+  &::after {
+    content: "";
+    display: block;
+
+    width: 100%;
+    height: 1rem;
+  }
 `;
 
 export default Main;

@@ -1,22 +1,18 @@
 import React from "react";
-import { FaGithub } from "react-icons/fa";
 
 import { keyframes, styled } from "lets-style";
 
-import { alignChildrenCenter, highlightOnHover } from "styles/Helpers";
+import Link from "components/Link";
+import { alignChildrenCenter } from "styles/Helpers";
 import { theme } from "styles/Theme";
 
 const Header = () => (
   <Container>
     <Title>lets-style</Title>
     <Right>
-      <Link
-        target="_blank"
-        rel="noreferrer noopenner"
-        href="https://github.com/Avantgarde95/lets-style"
-      >
-        <FaGithub />
-      </Link>
+      <StyledLink href="https://github.com/Avantgarde95/lets-style">
+        Code
+      </StyledLink>
     </Right>
   </Container>
 );
@@ -57,15 +53,10 @@ const Right = styled("div")`
   margin-left: auto;
 `;
 
-const Link = styled("a")`
-  ${alignChildrenCenter};
-  ${highlightOnHover};
-
-  cursor: pointer;
+const StyledLink = styled(Link)`
   text-decoration: none;
 
-  font-size: 1.5rem;
-  font-family: inherit;
+  font-size: 1.2rem;
   color: ${theme.color.white};
 `;
 

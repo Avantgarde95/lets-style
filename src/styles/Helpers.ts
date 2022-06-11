@@ -2,6 +2,8 @@ import { css } from "lets-style";
 
 import { theme } from "styles/Theme";
 
+export const onWideScreen = "@media (min-width: 768px)";
+
 export const alignChildrenCenter = css`
   display: flex;
   flex-direction: row;

@@ -11,6 +11,7 @@ const App = ({ Component, pageProps }: AppProps) => (
 
 const globalStyle = css`
   @import url("https://fonts.googleapis.com/css2?family=Raleway&display=swap");
+  @import url("https://fonts.googleapis.com/css2?family=Inconsolata&display=swap");
 
   html {
     width: 100%;
