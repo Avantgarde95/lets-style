@@ -7,6 +7,8 @@ import Main from "container/Main";
 import AboutSection from "container/AboutSection";
 import WhySection from "container/WhySection";
 import GoalsSection from "container/GoalSection";
+import SpecSection from "container/SpecSection";
+import HowSection from "container/HowSection";
 import ExampleSection from "container/ExampleSection";
 
 const HomePage = () => (
@@ -16,6 +18,8 @@ const HomePage = () => (
       <AboutSection />
       <WhySection />
       <GoalsSection />
+      <SpecSection />
+      {/* <HowSection /> */}
       <ExampleSection />
     </Main>
   </Container>

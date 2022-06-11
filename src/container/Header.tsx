@@ -2,18 +2,11 @@ import React from "react";
 
 import { keyframes, styled } from "lets-style";
 
-import Link from "components/Link";
-import { alignChildrenCenter } from "styles/Helpers";
 import { theme } from "styles/Theme";
 
 const Header = () => (
   <Container>
     <Title>lets-style</Title>
-    <Right>
-      <StyledLink href="https://github.com/Avantgarde95/lets-style">
-        Code
-      </StyledLink>
-    </Right>
   </Container>
 );
 
@@ -44,19 +37,6 @@ const Title = styled("h1")`
   font-size: 1.5rem;
   font-weight: normal;
 
-  color: ${theme.color.white};
-`;
-
-const Right = styled("div")`
-  ${alignChildrenCenter};
-
-  margin-left: auto;
-`;
-
-const StyledLink = styled(Link)`
-  text-decoration: none;
-
-  font-size: 1.2rem;
   color: ${theme.color.white};
 `;
 

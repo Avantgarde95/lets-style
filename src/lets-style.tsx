@@ -34,6 +34,35 @@ function hash(value: string) {
   return murmurhash(value).toString(16);
 }
 
+/**
+ * Handle the tagged template and return the things needed for styling.
+ *
+ * ```typescript
+ * const arg1 = "red";
+ * const arg2 = css`background-color: blue;`;
+ *
+ * processInput`
+ *   color: ${arg1};
+ *   ${arg2}
+ * `;
+ * ```
+ *
+ * Then...
+ *
+ * ```typescript
+ * parts = ["\n  color: ", ";\n  ", "\n"]
+ * args = [arg1, arg2]
+ * ```
+ *
+ * The result might be...
+ *
+ * ```typescript
+ * code = `
+ *   color: red;
+ *   background-color: blue;
+ * `
+ * ```
+ */
 function processInput(parts: InputParts, ...args: Array<InputArg>) {
   const codeParts: Array<string> = [];
   const neededStyles: Array<Style> = [];
@@ -79,12 +108,37 @@ function processInput(parts: InputParts, ...args: Array<InputArg>) {
 // ===================================================================
 // Tools for inserting the styles into the page.
 
+/**
+ * We store the IDs of the inserted styles
+ * to avoid creating multiple <style/>s for the same style.
+ */
 const insertedStyleIDSet = new Set<string>();
 
 function parseNestedCode(code: string) {
   return serialize(compile(`${code}`), middleware([prefixer, stringify]));
 }
 
+/**
+ * Create <style/> element, and insert it to the page if needed.
+ *
+ * If wrap = true, we get
+ *
+ * ```text
+ * <style>
+ *   .css-abc {
+ *     Contents
+ *   }
+ * </style>
+ *```
+ *
+ * If wrap = false, we get
+ *
+ * ```text
+ * <style>
+ *   Contents
+ * </style>
+ * ```
+ */
 function insertStyle(style: Style, wrap: boolean) {
   if (typeof document === "undefined") {
     return;

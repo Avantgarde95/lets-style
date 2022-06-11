@@ -1,6 +1,5 @@
 import List from "components/List";
 import Section from "components/Section";
-import Link from "next/link";
 import React from "react";
 
 const WhySection = () => (
