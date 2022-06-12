@@ -11,3 +11,7 @@ node_modules
 
 # Next.js files.
 .next
+
+# Private files.
+private
+!private/README.md
