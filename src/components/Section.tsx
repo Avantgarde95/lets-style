@@ -1,3 +1,5 @@
+import React from "react";
+
 import { keyframes, styled } from "lets-style";
 
 const Section = styled("section")`

@@ -230,7 +230,7 @@ function styled<TargetType extends ElementType>(Target: TargetType) {
     parts: InputParts,
     ...args: Array<InputArg | ((props: Props) => InputArg)>
   ) {
-    function ResultComponent(props: Props & TargetProps) {
+    function StyledComponent(props: Props & TargetProps) {
       const computedArgs = args.map((arg) =>
         typeof arg === "function" ? arg(props) : arg
       );
@@ -250,13 +250,13 @@ function styled<TargetType extends ElementType>(Target: TargetType) {
       return (
         <Target
           {...props}
-          // Temporary code.
+          // TODO: Remove `as`.
           {...({ className: computedClassName } as any)}
         />
       );
     }
 
-    return ResultComponent;
+    return StyledComponent;
   }
 
   return createStyledComponent;

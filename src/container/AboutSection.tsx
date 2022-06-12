@@ -23,7 +23,9 @@ const AboutSection = () => (
         &nbsp;and&nbsp;
         <Text.Link href="https://emotion.sh/">Emotion</Text.Link>
       </List.Item>
-      <List.Item>This page uses this library for styling!</List.Item>
+      <List.Item>
+        This page uses <Text.Emph>this library</Text.Emph> for styling!
+      </List.Item>
       <List.Item>
         Visit&nbsp;
         <Text.Link href="https://github.com/Avantgarde95/lets-style">
