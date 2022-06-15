@@ -1,5 +1,3 @@
-import { styled } from "lets-style";
-
 import {
   BasicExampleDemo,
   PseudoClassDemo,
@@ -7,71 +5,7 @@ import {
   MixStylesDemo,
   KeyframesDemo,
   ComponentPropsDemo,
-} from "containers/Demos";
-
-## About
-
-- Simple clone of [CSS-in-JS](https://en.wikipedia.org/wiki/CSS-in-JS) libraries
-- Inspired by [styled-components](https://styled-components.com/) and [Emotion](https://emotion.sh/)
-- This page uses **this library** for styling!
-- Visit [here](https://github.com/Avantgarde95/lets-style) to see the code of the library and this page.
-  Whole library code is contained in the [single file](https://github.com/Avantgarde95/lets-style/blob/main/src/lets-style.tsx).
-
-## Why
-
-- To understand how CSS-in-JS libraries work
-- To improve my knowledge
-
-## Goals
-
-Goals
-
-- Simple
-- Lightweight
-- Well-structured
-
-Non-goals
-
-- Performance
-- Usable in production
-
-## APIs
-
-**css**: Define a normal style
-
-```typescript
-const myStyle = css`
-  color: red;
-  font-size: 16px;
-`;
-```
-
-**keyframes**: Define an animation
-
-```typescript
-const myAnimation = keyframes`
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-`;
-```
-
-**styled**: Attach the style on the tag or React component
-
-```typescript
-const MyComponent = styled("div")`
-  color: red;
-`;
-```
-
-**Global**: Inject global style into the page
-
-```typescript
-<Global style={globalStyle} />
-```
+} from "components/Demos";
 
 ## Examples
 

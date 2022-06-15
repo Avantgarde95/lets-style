@@ -15,7 +15,7 @@ const Markdown = ({ children }: MarkdownProps) => (
   <MDXProvider
     components={{
       h2: Title,
-      a: Link,
+      a: NewTabLink,
       ul: List,
       strong: Strong,
       pre: CodeBox,
@@ -46,11 +46,11 @@ const Strong = styled("span")`
   font-weight: bold;
 `;
 
-const Link = (props: ComponentProps<"a">) => (
-  <LinkContainer {...props} target="_blank" rel="noreferrer noopener" />
+const NewTabLink = (props: ComponentProps<"a">) => (
+  <Link {...props} target="_blank" rel="noreferrer noopener" />
 );
 
-const LinkContainer = styled("a")`
+const Link = styled("a")`
   ${highlightOnHover};
 
   color: ${theme.color.blue};

@@ -1,0 +1,37 @@
+## APIs
+
+**css**: Define a normal style
+
+```typescript
+const myStyle = css`
+  color: red;
+  font-size: 16px;
+`;
+```
+
+**keyframes**: Define an animation
+
+```typescript
+const myAnimation = keyframes`
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+`;
+```
+
+**styled**: Attach the style on the tag or React component
+
+```typescript
+const MyComponent = styled("div")`
+  color: red;
+`;
+```
+
+**Global**: Inject global style into the page
+
+```typescript
+<Global style={globalStyle} />
+```
