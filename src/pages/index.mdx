@@ -1,0 +1,169 @@
+import { styled } from "lets-style";
+
+import {
+  BasicExampleDemo,
+  PseudoClassDemo,
+  OtherComponentDemo,
+  MixStylesDemo,
+  KeyframesDemo,
+  ComponentPropsDemo,
+} from "containers/Demos";
+
+## About
+
+- Simple clone of [CSS-in-JS](https://en.wikipedia.org/wiki/CSS-in-JS) libraries
+- Inspired by [styled-components](https://styled-components.com/) and [Emotion](https://emotion.sh/)
+- This page uses **this library** for styling!
+- Visit [here](https://github.com/Avantgarde95/lets-style) to see the code of the library and this page.
+  Whole library code is contained in the [single file](https://github.com/Avantgarde95/lets-style/blob/main/src/lets-style.tsx).
+
+## Why
+
+- To understand how CSS-in-JS libraries work
+- To improve my knowledge
+
+## Goals
+
+Goals
+
+- Simple
+- Lightweight
+- Well-structured
+
+Non-goals
+
+- Performance
+- Usable in production
+
+## APIs
+
+**css**: Define a normal style
+
+```typescript
+const myStyle = css`
+  color: red;
+  font-size: 16px;
+`;
+```
+
+**keyframes**: Define an animation
+
+```typescript
+const myAnimation = keyframes`
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+`;
+```
+
+**styled**: Attach the style on the tag or React component
+
+```typescript
+const MyComponent = styled("div")`
+  color: red;
+`;
+```
+
+**Global**: Inject global style into the page
+
+```typescript
+<Global style={globalStyle} />
+```
+
+## Examples
+
+Basic example
+
+```typescript
+const Button1 = styled("button")`
+  border: 1px solid black;
+  background-color: transparent;
+`;
+```
+
+<BasicExampleDemo />
+
+Pseudo class
+
+```typescript
+const Button2 = styled("button")`
+  border: 1px solid black;
+  background-color: transparent;
+
+  &:hover,
+  &:active {
+    background-color: skyblue;
+  }
+`;
+```
+
+<PseudoClassDemo />
+
+Use other component
+
+```typescript
+const Button3 = styled(Button2)`
+  font-weight: bold;
+`;
+```
+
+<OtherComponentDemo />
+
+Mix the styles
+
+```typescript
+const roundedBorders = css`
+  border-radius: 10px;
+`;
+
+const putTransition = css`
+  transition: background-color 1s;
+`;
+
+const Button4 = styled(Button3)`
+  ${roundedBorders}
+  ${putTransition}
+`;
+```
+
+<MixStylesDemo />
+
+Keyframes
+
+```typescript
+const fadeIn = keyframes`
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+`;
+
+const Button5 = styled(Button4)`
+  animation: 2s ${fadeIn} infinite;
+`;
+```
+
+<KeyframesDemo />
+
+Use component props
+
+```typescript
+interface Button6Props {
+  count: number;
+  onClick: () => void;
+}
+
+const Button6 = styled(Button3)<Button6Props>`
+  color: ${({ count }) => (count > 5 ? "red" : "black")};
+`;
+```
+
+<ComponentPropsDemo />

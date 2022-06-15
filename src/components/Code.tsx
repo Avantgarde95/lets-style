@@ -1,12 +1,12 @@
-import React, { Fragment, ReactNode } from "react";
+import React, { ComponentProps, Fragment, ReactNode } from "react";
 
 import { styled } from "lets-style";
 
 import { theme } from "styles/Theme";
 
-type WordType = "Special" | "Wrap" | "Keyword" | "API";
+type HighlightType = "Special" | "Wrap" | "Keyword" | "API";
 
-const words: Array<[string, WordType]> = [
+const highlights: Array<[string, HighlightType]> = [
   ["<", "Wrap"],
   ["/>", "Wrap"],
   ["{", "Wrap"],
@@ -29,19 +29,15 @@ const words: Array<[string, WordType]> = [
   ["Global", "API"],
 ];
 
-interface CodeProps {
-  children: string;
-}
-
-const Code = ({ children }: CodeProps) => {
-  const code = children.trim();
+const Code = ({ children, ...others }: ComponentProps<"code">) => {
+  const code = String(children).trim();
   let codeIndex = 0;
   const stack: Array<ReactNode> = [""];
 
   while (codeIndex < code.length) {
     let match = false;
 
-    for (const [word, type] of words) {
+    for (const [word, type] of highlights) {
       if (code.startsWith(word, codeIndex)) {
         stack.push(<Highlight type={type}>{word}</Highlight>);
         match = true;
@@ -64,7 +60,7 @@ const Code = ({ children }: CodeProps) => {
   }
 
   return (
-    <Container>
+    <Container {...others}>
       {stack.map((item, index) => (
         <Fragment key={index}>{item}</Fragment>
       ))}
@@ -79,7 +75,7 @@ const Container = styled("code")`
   font-size: 1rem;
 `;
 
-const colorMap: Record<WordType, string> = {
+const colorMap: Record<HighlightType, string> = {
   Special: theme.color.green,
   Wrap: theme.color.blue,
   Keyword: theme.color.orange,
@@ -87,7 +83,7 @@ const colorMap: Record<WordType, string> = {
 };
 
 interface HighlightProps {
-  type: WordType;
+  type: HighlightType;
 }
 
 const Highlight = styled("span")<HighlightProps>`
