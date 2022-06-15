@@ -2,14 +2,14 @@ import React from "react";
 
 import { styled } from "lets-style";
 
-import Header from "container/Header";
-import Main from "container/Main";
-import AboutSection from "container/AboutSection";
-import WhySection from "container/WhySection";
-import GoalsSection from "container/GoalSection";
-import SpecSection from "container/SpecSection";
-import HowSection from "container/HowSection";
-import ExampleSection from "container/ExampleSection";
+import Header from "containers/Header";
+import Main from "containers/Main";
+import AboutSection from "containers/AboutSection";
+import WhySection from "containers/WhySection";
+import GoalsSection from "containers/GoalSection";
+import SpecSection from "containers/SpecSection";
+import HowSection from "containers/HowSection";
+import ExampleSection from "containers/ExampleSection";
 
 const HomePage = () => (
   <Container>
