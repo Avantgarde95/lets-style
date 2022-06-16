@@ -1,15 +1,17 @@
-import {
-  BasicExampleDemo,
-  PseudoClassDemo,
-  OtherComponentDemo,
-  MixStylesDemo,
-  KeyframesDemo,
-  ComponentPropsDemo,
-} from "components/Demos";
+import Demo, {
+  BasicExample,
+  PseudoClass,
+  OtherComponent,
+  MixStyles,
+  Keyframes,
+  UseProps,
+} from "components/Demo";
 
 ## Examples
 
 Basic example
+
+<Demo>
 
 ```typescript
 const Button1 = styled("button")`
@@ -18,9 +20,12 @@ const Button1 = styled("button")`
 `;
 ```
 
-<BasicExampleDemo />
+  <BasicExample />
+</Demo>
 
 Pseudo class
+
+<Demo>
 
 ```typescript
 const Button2 = styled("button")`
@@ -34,9 +39,12 @@ const Button2 = styled("button")`
 `;
 ```
 
-<PseudoClassDemo />
+  <PseudoClass />
+</Demo>
 
 Use other component
+
+<Demo>
 
 ```typescript
 const Button3 = styled(Button2)`
@@ -44,9 +52,12 @@ const Button3 = styled(Button2)`
 `;
 ```
 
-<OtherComponentDemo />
+  <OtherComponent />
+</Demo>
 
 Mix the styles
+
+<Demo>
 
 ```typescript
 const roundedBorders = css`
@@ -63,9 +74,12 @@ const Button4 = styled(Button3)`
 `;
 ```
 
-<MixStylesDemo />
+  <MixStyles />
+</Demo>
 
 Keyframes
+
+<Demo>
 
 ```typescript
 const fadeIn = keyframes`
@@ -85,9 +99,12 @@ const Button5 = styled(Button4)`
 `;
 ```
 
-<KeyframesDemo />
+  <Keyframes />
+</Demo>
 
 Use component props
+
+<Demo>
 
 ```typescript
 interface Button6Props {
@@ -100,4 +117,5 @@ const Button6 = styled(Button3)<Button6Props>`
 `;
 ```
 
-<ComponentPropsDemo />
+  <UseProps />
+</Demo>

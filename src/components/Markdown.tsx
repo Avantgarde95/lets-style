@@ -15,6 +15,7 @@ const Markdown = ({ children }: MarkdownProps) => (
   <MDXProvider
     components={{
       h2: Title,
+      p: Paragraph,
       a: NewTabLink,
       ul: List,
       strong: Strong,
@@ -34,12 +35,17 @@ const titleAnimation = keyframes`
 `;
 
 const Title = styled("h2")`
-  margin: 0 0 0.5rem 0;
+  margin: 0 0 1rem 0;
   padding: 0;
 
   transform: translateX(-1rem);
   opacity: 0;
   animation: 1.5s ${titleAnimation} forwards;
+`;
+
+const Paragraph = styled("p")`
+  width: 100%;
+  margin: 0 0 1rem 0;
 `;
 
 const Strong = styled("span")`
@@ -65,6 +71,8 @@ const CodeBox = styled("pre")`
   box-sizing: border-box;
   overflow-x: auto;
 
+  width: 100%;
+  margin: 0 0 1rem 0;
   padding: 0.8rem;
   border: 1px solid ${theme.color.black};
 `;

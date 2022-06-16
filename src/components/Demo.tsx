@@ -2,40 +2,52 @@ import React, { useState } from "react";
 
 import { css, keyframes, styled } from "lets-style";
 
-import { alignChildrenCenter } from "styles/Helpers";
+import { alignChildrenCenter, onWideScreen } from "styles/Helpers";
 import { theme } from "styles/Theme";
 
-export const BasicExampleDemo = () => (
+const Demo = styled("div")`
+  width: 100%;
+
+  ${onWideScreen} {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+
+    gap: 1rem;
+  }
+`;
+
+export const BasicExample = () => (
   <Container>
     <Button1>Click me!</Button1>
   </Container>
 );
 
-export const PseudoClassDemo = () => (
+export const PseudoClass = () => (
   <Container>
     <Button2>Click me!</Button2>
   </Container>
 );
 
-export const OtherComponentDemo = () => (
+export const OtherComponent = () => (
   <Container>
     <Button3>Click me!</Button3>
   </Container>
 );
 
-export const MixStylesDemo = () => (
+export const MixStyles = () => (
   <Container>
     <Button4>Click me!</Button4>
   </Container>
 );
 
-export const KeyframesDemo = () => (
+export const Keyframes = () => (
   <Container>
     <Button5>Click me!</Button5>
   </Container>
 );
 
-export const ComponentPropsDemo = () => {
+export const UseProps = () => {
   const [count, setCount] = useState(0);
 
   return (
@@ -57,7 +69,6 @@ const Container = styled("div")`
 
   box-sizing: border-box;
 
-  // flex: 1;
   width: 100%;
   margin: 0 0 1rem 0;
   padding: 0.8rem;
@@ -121,3 +132,5 @@ interface Button6Props {
 const Button6 = styled(Button3)<Button6Props>`
   color: ${({ count }) => (count > 5 ? "red" : "black")};
 `;
+
+export default Demo;
