@@ -1,6 +1,10 @@
-# avantgarde-style
+# lets-style
 
 Simple clone of CSS-in-JS libraries
+
+- It implements common APIs such as `css()`, `styled()`, ...
+- Inspired by styled-components and Emotion
+- The implementation is contained in the [**single file**](src/lets-style.tsx)!
 
 ## How to run
 
@@ -21,12 +25,7 @@ Install the dependencies
 Run in the development mode
 
 - Run `yarn dev`
-- Open <http://localhost:3000/lets-style> on the browser
-
-Generate the static website
-
-- Run `yarn build`
-- Run `yarn export`
+- Open <http://localhost:3000> on the browser
 
 Check the code
 
