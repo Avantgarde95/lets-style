@@ -27,6 +27,11 @@ Run in the development mode
 - Run `yarn dev`
 - Open <http://localhost:3000> on the browser
 
+Run in the production mode
+
+- Run `yarn build && yarn start`
+- Open <http://localhost:3000> on the browser
+
 Check the code
 
 - Run `yarn lint`
